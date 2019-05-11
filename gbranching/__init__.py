@@ -21,6 +21,8 @@ from argparse import RawTextHelpFormatter
 
 import pyperclip
 
+__version__ = '1.0'
+
 
 def transform_title(title):
     title = title.lower()
@@ -38,9 +40,9 @@ def transform_title(title):
 
 parser = argparse.ArgumentParser(formatter_class=RawTextHelpFormatter, description="""
     gbranching a command line utility to easily transform ticket name to create branch names for Git. 
-""", epilog=textwrap.dedent("""
+""", epilog=textwrap.dedent(f"""
     Author: Zaerald Denze Lungos
-    Version: 1.0
+    Version: {__version__}
 """))
 
 parser.add_argument('-t', '--type', choices=['story', 'bug', 'bau'],
@@ -50,6 +52,7 @@ parser.add_argument('-p', '--project',
 parser.add_argument('-n', '--number', type=int,
                     help='ticket number')
 parser.add_argument('title', help='title of the ticket')
+parser.add_argument('-v', '--version', action='version', version=f'%(prog)s {__version__}')
 args = parser.parse_args()
 
 ticket_type = 'story'
