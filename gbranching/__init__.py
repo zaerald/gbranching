@@ -61,7 +61,7 @@ if args.type:
 
 project = ''
 if args.project:
-    project = f'{args.project}-'
+    project = f'{args.project.upper()}-'
 
 ticket_number = ''
 if args.number:
