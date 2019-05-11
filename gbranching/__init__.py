@@ -24,6 +24,16 @@ import pyperclip
 __version__ = '1.0'
 
 
+class Ticket:
+    def __init__(self, title):
+        self.title = title
+        self.type = 'story'
+        self.project_name = ''
+        self.number = ''
+        self.separator = '-'
+        self.format = '{type}/{project}{sep}{number}{sep}{title}'
+
+
 def transform_title(title):
     title = title.lower()
     branch_invalid_patterns = r'''
@@ -36,6 +46,16 @@ def transform_title(title):
     '''
 
     return re.sub(branch_invalid_patterns, '', title, flags=re.VERBOSE).strip().replace(' ', '-')
+
+
+def generate_branch_formatted(_ticket):
+    return _ticket.format \
+        .replace('{type}', _ticket.type) \
+        .replace('{project}', _ticket.project_name) \
+        .replace('{number}', str(_ticket.number)) \
+        .replace('{title}', _ticket.title) \
+        .replace('{sep}', _ticket.separator) \
+        .replace(ticket.separator * 2, '')
 
 
 parser = argparse.ArgumentParser(formatter_class=RawTextHelpFormatter, description="""
@@ -51,23 +71,23 @@ parser.add_argument('-p', '--project',
                     help='project name initials')
 parser.add_argument('-n', '--number', type=int,
                     help='ticket number')
+parser.add_argument('-f', '--format',
+                    help='format of the generated ticket, default is {type}/{project}{sep}{number}{sep}{title}')
 parser.add_argument('title', help='title of the ticket')
 parser.add_argument('-v', '--version', action='version', version=f'%(prog)s {__version__}')
 args = parser.parse_args()
 
-ticket_type = 'story'
+ticket = Ticket(transform_title(args.title))
+
 if args.type:
-    ticket_type = args.type
-
-project = ''
+    ticket.type = args.type
 if args.project:
-    project = f'{args.project.upper()}-'
-
-ticket_number = ''
+    ticket.project_name = args.project.upper()
 if args.number:
-    ticket_number = f'{args.number}-'
+    ticket.number = args.number
+if args.format:
+    ticket.format = args.format
 
-branch_name = f'{ticket_type}/{project}{ticket_number}{transform_title(args.title)}'
+branch_name = generate_branch_formatted(ticket)
 pyperclip.copy(branch_name)
-
 print(f"'{branch_name}' is copied to clipboard!")
