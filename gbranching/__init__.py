@@ -11,7 +11,7 @@ $ gbranching title
 ```
 
 @author Zaerald Denze Lungos
-@version 1.0
+@version 1.0.1
 __doc__
 """
 import argparse
@@ -21,7 +21,7 @@ from argparse import RawTextHelpFormatter
 
 import pyperclip
 
-__version__ = '1.0'
+__version__ = '1.0.1'
 
 
 class Ticket:
@@ -45,7 +45,7 @@ def transform_title(title):
         [/(.lock)]$     # must not end with `/` `.lock`
     '''
 
-    return re.sub(branch_invalid_patterns, '', title, flags=re.VERBOSE).strip().replace(' ', '-')
+    return re.sub(branch_invalid_patterns, '', title, flags=re.VERBOSE).strip().replace(' ', '-').replace(',', '-')
 
 
 def generate_branch_formatted(_ticket):

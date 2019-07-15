@@ -15,3 +15,8 @@ story/GB-some-new-feature-to-implement
 $ gbranching -t story -n 1234 'Some new feature to implement'
 story/GB-1234-some-new-feature-to-implement
 ```
+
+### Make it Executable
+```bash
+pyinstaller -F gbranching/__init__.py -n gbranching --distpath ./bin
+```

@@ -1,2 +1,2 @@
 #! /bin/bash
-cp gbranching /usr/local/bin
+cp ./bin/gbranching /usr/local/bin/gbranching
