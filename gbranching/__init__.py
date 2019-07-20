@@ -61,7 +61,7 @@ def generate_branch_formatted(_ticket):
         .replace('{number}', str(_ticket.number)) \
         .replace('{title}', _ticket.title) \
         .replace('{sep}', _ticket.separator) \
-        .replace(ticket.separator * 2, '')
+        .replace(_ticket.separator * 2, '-')
 
 
 parser = argparse.ArgumentParser(formatter_class=RawTextHelpFormatter, description="""
