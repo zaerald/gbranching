@@ -11,7 +11,7 @@ $ gbranching title
 ```
 
 @author Zaerald Denze Lungos
-@version 1.0.1
+@version 1.0.2
 __doc__
 """
 import argparse
@@ -21,7 +21,7 @@ from argparse import RawTextHelpFormatter
 
 import pyperclip
 
-__version__ = '1.0.1'
+__version__ = '1.0.2'
 
 
 class Ticket:
