@@ -48,6 +48,12 @@ def transform_title(title):
     return re.sub(branch_invalid_patterns, '', title, flags=re.VERBOSE).strip().replace(' ', '-').replace(',', '-')
 
 
+def parse_number(_number):
+    if not _number.isdigit():
+        raise argparse.ArgumentTypeError(f"{_number} contains a letter, must only contain a digit.")
+    return _number
+
+
 def generate_branch_formatted(_ticket):
     return _ticket.format \
         .replace('{type}', _ticket.type) \
@@ -69,7 +75,7 @@ parser.add_argument('-t', '--type', choices=['story', 'bug', 'bau'],
                     help='the ticket type ')
 parser.add_argument('-p', '--project',
                     help='project name initials')
-parser.add_argument('-n', '--number', type=int,
+parser.add_argument('-n', '--number', type=parse_number,
                     help='ticket number')
 parser.add_argument('-f', '--format',
                     help='format of the generated ticket, default is {type}/{project}{sep}{number}{sep}{title}')
